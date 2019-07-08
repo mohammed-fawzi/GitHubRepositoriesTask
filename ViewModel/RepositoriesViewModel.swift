@@ -13,7 +13,7 @@ protocol RepositoriesViewModelDelegate: class {
     func onFetchFailed(with reason: String)
 }
 
-final class ModeratorsViewModel {
+final class RepositoriesViewModel {
     private weak var delegate: RepositoriesViewModelDelegate?
     
     private var repositories: [Repository] = []
