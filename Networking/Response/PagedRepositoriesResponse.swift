@@ -8,9 +8,8 @@
 
 import Foundation
 
-struct PagedRepositoriesResponse: Decodable {
+struct PagedRepositoriesResponse {
     let repositories: [Repository]
-    //let total: Int
-    let hasMore: Bool
-    //let page: Int
+    var hasMore: Bool
+    var page: Int
 }

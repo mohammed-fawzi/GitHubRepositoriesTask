@@ -30,5 +30,9 @@ class RepositoryCell: UITableViewCell {
     func configure(withName name: String){
         repoName.text = name
     }
+    
+    func configureAsLoding(){
+        repoName.text = "loading....."
+    }
 
 }

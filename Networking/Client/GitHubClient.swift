@@ -17,6 +17,7 @@ class GitHubClient {
                            page: Int,
                            completion: @escaping(Result<PagedRepositoriesResponse,ResponseError>)->Void) {
         
+        request.updateQueiry(forKey: "page", withValue: page)
         let url = constructURL(for: request)
         
         
@@ -29,12 +30,22 @@ class GitHubClient {
                     completion(Result.failure(ResponseError.network))
                     return
             }
-            
+           
+  
             guard let decodedResponse = try? JSONDecoder().decode([Repository].self, from: data) else {
                 completion(Result.failure(ResponseError.decoding))
                 return
             }
-            let pagedRepositories = PagedRepositoriesResponse(repositories: decodedResponse, hasMore: true)
+            var pagedRepositories = PagedRepositoriesResponse(repositories: decodedResponse,
+                                                              hasMore: true,
+                                                              page: page)
+            
+            if let linkHeader = httpResponse.allHeaderFields["Link"] as? String  {
+                if !linkHeader.contains("rel=\"next\"") {
+                    pagedRepositories.hasMore = false
+                }
+            }
+            
             completion(Result.success(pagedRepositories))
         }).resume()
     }

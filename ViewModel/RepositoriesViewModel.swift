@@ -18,8 +18,9 @@ final class RepositoriesViewModel {
     
     private var repositories: [Repository] = []
     private var currentPage = 1
-    private var total = 0
+    private var total = 30
     private var isFetchInProgress = false
+    var hasMoreToFetch = true
     
     let client = GitHubClient()
     let request: GetRepositoriesRequest
@@ -43,7 +44,7 @@ final class RepositoriesViewModel {
     
     func fetchModerators() {
         
-        guard !isFetchInProgress else {
+        guard !isFetchInProgress || hasMoreToFetch else {
             return
         }
         
@@ -59,12 +60,29 @@ final class RepositoriesViewModel {
             
             case .success(let response):
                 DispatchQueue.main.async {
+                    
+                    self.currentPage += 1
                     self.isFetchInProgress = false
+                    self.hasMoreToFetch = response.hasMore
                     self.repositories.append(contentsOf: response.repositories)
-                    self.delegate?.onFetchCompleted(with: .none)
+                    
+                    if response.page > 1 {
+                        let indexPathsToReload = self.calculateIndexPathsToReload(from: response.repositories)
+                        self.delegate?.onFetchCompleted(with: indexPathsToReload)
+                    } else {
+                        self.delegate?.onFetchCompleted(with: .none)
+                    }
                 }
             }
         }
+    }
+    
+    // This utility calculates the index paths for the last page of repositories received from the API
+    // used  to refresh only the content that's changed, instead of reloading the whole table view.
+    private func calculateIndexPathsToReload(from newRepositories: [Repository]) -> [IndexPath] {
+        let startIndex = repositories.count - newRepositories.count
+        let endIndex = startIndex + newRepositories.count
+        return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
     }
 }
 

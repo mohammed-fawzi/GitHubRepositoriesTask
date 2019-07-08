@@ -8,14 +8,17 @@
 
 import Foundation
 
-struct GetRepositoriesRequest {
-    var resourceName = "repos"
-
-    var queires = [String:String]()
+class GetRepositoriesRequest {
+     var resourceName = "repos"
+     var queires = [String:String]()
     
     init(forPageNumber number: Int) {
-        
         queires["page"] = number.description
         queires["per_page"] = "15"
     }
+    
+    func updateQueiry(forKey key: String, withValue value: Int){
+        queires[key] = value.description
+    }
+    
 }

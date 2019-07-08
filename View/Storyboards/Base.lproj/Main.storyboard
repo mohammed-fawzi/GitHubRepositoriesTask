@@ -46,7 +46,6 @@
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="A9D-aR-3tf"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="zJR-xv-Dz1"/>
-                                    <outlet property="prefetchDataSource" destination="BYZ-38-t0r" id="ErG-xB-YZy"/>
                                 </connections>
                             </tableView>
                         </subviews>

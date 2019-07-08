@@ -18,7 +18,6 @@ class RepositoriesViewController: UIViewController, AlertDisplayer{
         
         let request = GetRepositoriesRequest(forPageNumber: 1)
         viewModel = RepositoriesViewModel(request: request, delegate: self)
-        
         viewModel.fetchModerators()
     }
 
@@ -26,6 +25,7 @@ class RepositoriesViewController: UIViewController, AlertDisplayer{
 }
 
 
+//MARK:- Table view Data Source
 extension RepositoriesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.currentCount
@@ -33,9 +33,16 @@ extension RepositoriesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Cells.repositoryCell.rawValue, for: indexPath) as! RepositoryCell
+        
+        
+        if indexPath.row == viewModel.currentCount - 3 && viewModel.hasMoreToFetch {
+            print("fetching")
+            viewModel.fetchModerators()
+        }
+        
         let repo = viewModel.repository(at: indexPath.row)
         if let repoName = repo.name {
-            cell.configure(withName: repoName)
+        cell.configure(withName: repoName)
         }
         
         return cell
@@ -44,21 +51,14 @@ extension RepositoriesViewController: UITableViewDataSource {
     
 }
 
-extension RepositoriesViewController: UITableViewDelegate {
-    
-}
 
-extension RepositoriesViewController: UITableViewDataSourcePrefetching {
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        
-    }
-    
-    
-}
 
+//MARK:-  View Model Delegate
 extension RepositoriesViewController: RepositoriesViewModelDelegate {
     func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
+        
         tableView.reloadData()
+ 
     }
     
     func onFetchFailed(with reason: String) {
@@ -70,7 +70,13 @@ extension RepositoriesViewController: RepositoriesViewModelDelegate {
     
 }
 
+//MARK:- Helper methods
 extension RepositoriesViewController {
-    
+   
+    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+        let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows ?? []
+        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
+        return Array(indexPathsIntersection)
+    }
 }
 
