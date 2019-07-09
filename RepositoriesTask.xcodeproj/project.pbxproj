@@ -24,6 +24,7 @@
 		71D12FFC22D3ADCF0070F432 /* RepositoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D12FFB22D3ADCF0070F432 /* RepositoriesViewModel.swift */; };
 		71D12FFF22D3BA8A0070F432 /* AlertDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D12FFE22D3BA8A0070F432 /* AlertDisplayer.swift */; };
 		71D1300122D3BB500070F432 /* Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D1300022D3BB500070F432 /* Cells.swift */; };
+		71D1300422D419B40070F432 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D1300322D419B40070F432 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		71D12FFB22D3ADCF0070F432 /* RepositoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesViewModel.swift; sourceTree = "<group>"; };
 		71D12FFE22D3BA8A0070F432 /* AlertDisplayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDisplayer.swift; sourceTree = "<group>"; };
 		71D1300022D3BB500070F432 /* Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cells.swift; sourceTree = "<group>"; };
+		71D1300322D419B40070F432 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,14 +64,6 @@
 		71D12FBA22D3A0C60070F432 = {
 			isa = PBXGroup;
 			children = (
-				71D12FF422D3A9770070F432 /* Enums */,
-				71D12FE122D3A1C30070F432 /* Networking */,
-				71D12FE022D3A1B60070F432 /* Extensions */,
-				71D12FDF22D3A1AE0070F432 /* Constants */,
-				71D12FDE22D3A1A70070F432 /* ViewModel */,
-				71D12FDD22D3A1A00070F432 /* Controller */,
-				71D12FDC22D3A1990070F432 /* View */,
-				71D12FDB22D3A17F0070F432 /* Model */,
 				71D12FC522D3A0C60070F432 /* RepositoriesTask */,
 				71D12FC422D3A0C60070F432 /* Products */,
 			);
@@ -86,6 +80,15 @@
 		71D12FC522D3A0C60070F432 /* RepositoriesTask */ = {
 			isa = PBXGroup;
 			children = (
+				71D12FDB22D3A17F0070F432 /* Model */,
+				71D12FDC22D3A1990070F432 /* View */,
+				71D12FDE22D3A1A70070F432 /* ViewModel */,
+				71D12FDD22D3A1A00070F432 /* Controller */,
+				71D12FE122D3A1C30070F432 /* Networking */,
+				71D12FF422D3A9770070F432 /* Enums */,
+				71D12FE022D3A1B60070F432 /* Extensions */,
+				71D12FDF22D3A1AE0070F432 /* Constants */,
+				71D1300222D4199F0070F432 /* Managers */,
 				71D12FC622D3A0C60070F432 /* AppDelegate.swift */,
 				71D12FD022D3A0C60070F432 /* Assets.xcassets */,
 				71D12FD522D3A0C60070F432 /* Info.plist */,
@@ -220,6 +223,14 @@
 			path = "Custom Views";
 			sourceTree = "<group>";
 		};
+		71D1300222D4199F0070F432 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				71D1300322D419B40070F432 /* CoreDataManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -294,6 +305,7 @@
 				71D12FF122D3A6DB0070F432 /* GetRepositoriesRequest.swift in Sources */,
 				71D1300122D3BB500070F432 /* Cells.swift in Sources */,
 				71D12FEC22D3A4C30070F432 /* Repository.swift in Sources */,
+				71D1300422D419B40070F432 /* CoreDataManager.swift in Sources */,
 				71D12FC922D3A0C60070F432 /* RepositoriesViewController.swift in Sources */,
 				71D12FC722D3A0C60070F432 /* AppDelegate.swift in Sources */,
 				71D12FF822D3AAF10070F432 /* HTTPURLResponse + extention.swift in Sources */,

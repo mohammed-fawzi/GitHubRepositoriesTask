@@ -16,13 +16,15 @@ class RepositoriesViewController: UIViewController, AlertDisplayer{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         let request = GetRepositoriesRequest(forPageNumber: 1)
         viewModel = RepositoriesViewModel(request: request, delegate: self)
         viewModel.fetchModerators()
     }
 
-
+  
 }
+
 
 
 //MARK:- Table view Data Source
@@ -64,6 +66,9 @@ extension RepositoriesViewController: RepositoriesViewModelDelegate {
         let title = "Warning"
         let action = UIAlertAction(title: "OK", style: .default)
         displayAlert(with: title , message: reason, actions: [action])
+        print("fffffff")
+        viewModel.hasMoreToFetch = false
+        tableView.reloadData()
     }
     
     

@@ -20,7 +20,6 @@ final class RepositoriesViewModel {
     
     private var repositories: [Repository] = []
     private var currentPage = 1
-    private var total = 30
     private var isFetchInProgress = false
     var hasMoreToFetch = true
     
@@ -28,10 +27,7 @@ final class RepositoriesViewModel {
     let request: GetRepositoriesRequest
 
     //MARK:- computed properties
-    var totalCount: Int {
-        return total
-    }
-    
+   
     var currentCount: Int {
         return repositories.count
     }
@@ -60,7 +56,9 @@ final class RepositoriesViewModel {
             switch result {
             case .failure(let error):
                 DispatchQueue.main.async {
+                    print("failure")
                     self.isFetchInProgress = false
+                    self.repositories = CoreDataManager.shared.fetchAllRepositories()
                     self.delegate?.fetchFailed(with: error.reason)
                 }
             
@@ -71,6 +69,7 @@ final class RepositoriesViewModel {
                     self.isFetchInProgress = false
                     self.hasMoreToFetch = response.hasMore
                     self.repositories.append(contentsOf: response.repositories)
+                    CoreDataManager.shared.saveRepositories(response.repositories)
                     
                     self.delegate?.fetchCompleted()
                 }

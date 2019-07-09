@@ -20,4 +20,12 @@ struct Repository: Decodable {
         case id,name,description
         case url = "html_url"
     }
+    
+    init(fromCDRepository repo: CDRepository) {
+        self.id = Int(repo.id)
+        self.name = repo.name
+        self.description = repo.repoDescription
+        self.url = URL(string: repo.url ?? "")
+        
+    }
 }
