@@ -38,6 +38,7 @@ class GitHubClient {
             
             if self.isFirstCall {
                 self.totalNumberOfPages = self.getTotalNumberOfPages(response: httpResponse) ?? 1
+                
                 self.isFirstCall = false
             }
            
@@ -85,7 +86,7 @@ extension GitHubClient {
         let lastPageLink = linkHeader.split(separator: ",").filter{$0.contains("rel=\"last\"")}.first
     
             guard let lastPageLinkString = lastPageLink,
-                  let page = String(lastPageLinkString).subString(WithPattern: "&page=[1-9]+"),
+                  let page = String(lastPageLinkString).subString(WithPattern: "[&,?]page=[1-9]+"),
                   let lastPageNumber = page.subString(WithPattern: "[1-9]+") else {return nil}
             
             return Int(lastPageNumber)

@@ -26,7 +26,7 @@ class RepositoriesViewController: UIViewController, AlertDisplayer{
         setupRefreshControl()
         let request = GetRepositoriesRequest(forPageNumber: 1)
         viewModel = RepositoriesViewModel(request: request, delegate: self)
-        viewModel.fetchModerators()
+        viewModel.fetchRepos()
     }
     
     
@@ -50,8 +50,7 @@ extension RepositoriesViewController: UITableViewDataSource {
         
         
         if indexPath.row == viewModel.currentCount - 3 && viewModel.hasMoreToFetch {
-            print("fetching")
-            viewModel.fetchModerators()
+            viewModel.fetchRepos()
         }
         
         let repo = viewModel.repository(at: indexPath.row)
@@ -70,9 +69,7 @@ extension RepositoriesViewController: UITableViewDataSource {
 extension RepositoriesViewController: RepositoriesViewModelDelegate {
     func fetchCompleted(currentPageNumber: Int, totalNumberOfPages: Int) {
         let progress = Float(currentPageNumber)/Float(totalNumberOfPages)
-        print(currentPageNumber)
-        print(totalNumberOfPages)
-        print(progress)
+    
         progrssBar.setProgress(progress, animated: true)
         refreshControl.endRefreshing()
         tableView.reloadData()

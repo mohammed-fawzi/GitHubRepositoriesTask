@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7160A5D022D43EAE00D915AC /* String + Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7160A5CF22D43EAE00D915AC /* String + Extention.swift */; };
+		7160A5D322D45CBF00D915AC /* Hypothetical Situation.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7160A5D222D45CBF00D915AC /* Hypothetical Situation.rtf */; };
 		71D12FC722D3A0C60070F432 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D12FC622D3A0C60070F432 /* AppDelegate.swift */; };
 		71D12FC922D3A0C60070F432 /* RepositoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D12FC822D3A0C60070F432 /* RepositoriesViewController.swift */; };
 		71D12FCC22D3A0C60070F432 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71D12FCA22D3A0C60070F432 /* Main.storyboard */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		7160A5CF22D43EAE00D915AC /* String + Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extention.swift"; sourceTree = "<group>"; };
+		7160A5D222D45CBF00D915AC /* Hypothetical Situation.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Hypothetical Situation.rtf"; sourceTree = "<group>"; };
 		71D12FC322D3A0C60070F432 /* RepositoriesTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RepositoriesTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D12FC622D3A0C60070F432 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		71D12FC822D3A0C60070F432 /* RepositoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 		71D12FBA22D3A0C60070F432 = {
 			isa = PBXGroup;
 			children = (
+				7160A5D222D45CBF00D915AC /* Hypothetical Situation.rtf */,
 				71D12FC522D3A0C60070F432 /* RepositoriesTask */,
 				71D12FC422D3A0C60070F432 /* Products */,
 			);
@@ -89,7 +92,6 @@
 				71D12FE122D3A1C30070F432 /* Networking */,
 				71D12FF422D3A9770070F432 /* Enums */,
 				71D12FE022D3A1B60070F432 /* Extensions */,
-				71D12FDF22D3A1AE0070F432 /* Constants */,
 				71D1300222D4199F0070F432 /* Managers */,
 				71D12FC622D3A0C60070F432 /* AppDelegate.swift */,
 				71D12FD022D3A0C60070F432 /* Assets.xcassets */,
@@ -131,13 +133,6 @@
 				71D12FFB22D3ADCF0070F432 /* RepositoriesViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		71D12FDF22D3A1AE0070F432 /* Constants */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Constants;
 			sourceTree = "<group>";
 		};
 		71D12FE022D3A1B60070F432 /* Extensions */ = {
@@ -294,6 +289,7 @@
 			files = (
 				71D12FD422D3A0C60070F432 /* LaunchScreen.storyboard in Resources */,
 				71D12FD122D3A0C60070F432 /* Assets.xcassets in Resources */,
+				7160A5D322D45CBF00D915AC /* Hypothetical Situation.rtf in Resources */,
 				71D12FCC22D3A0C60070F432 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -45,7 +45,7 @@ final class RepositoriesViewModel {
         self.delegate = delegate
     }
     
-    func fetchModerators() {
+    func fetchRepos() {
         
         guard !isFetchInProgress || hasMoreToFetch else {
             return
@@ -57,7 +57,6 @@ final class RepositoriesViewModel {
             switch result {
             case .failure(let error):
                 DispatchQueue.main.async {
-                    print("failure")
                     self.isFetchInProgress = false
                     self.repositories = CoreDataManager.shared.fetchAllRepositories()
                     self.delegate?.fetchFailed(with: error.reason)
@@ -84,7 +83,7 @@ final class RepositoriesViewModel {
         repositories = []
         hasMoreToFetch = true
         currentPage = 1
-        fetchModerators()
+        fetchRepos()
     }
     
 }
