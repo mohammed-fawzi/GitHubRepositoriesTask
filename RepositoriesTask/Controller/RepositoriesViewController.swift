@@ -12,14 +12,25 @@ class RepositoriesViewController: UIViewController, AlertDisplayer{
     @IBOutlet weak var tableView: UITableView!
     
     private var viewModel: RepositoriesViewModel!
+    private let refreshControl = UIRefreshControl()
+    fileprivate func setupRefreshControl() {
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refreshControl)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
+        setupRefreshControl()
         let request = GetRepositoriesRequest(forPageNumber: 1)
         viewModel = RepositoriesViewModel(request: request, delegate: self)
         viewModel.fetchModerators()
+    }
+    
+    
+    @objc func refresh(sender:AnyObject) {
+        viewModel.refresh()
     }
 
   
@@ -57,16 +68,17 @@ extension RepositoriesViewController: UITableViewDataSource {
 //MARK:-  View Model Delegate
 extension RepositoriesViewController: RepositoriesViewModelDelegate {
     func fetchCompleted() {
-        
+        refreshControl.endRefreshing()
         tableView.reloadData()
  
     }
     
     func fetchFailed(with reason: String) {
+        refreshControl.endRefreshing()
         let title = "Warning"
         let action = UIAlertAction(title: "OK", style: .default)
-        displayAlert(with: title , message: reason, actions: [action])
-        print("fffffff")
+        let message = reason + " your offline data will be represented you can pull down at the top to refresh your content"
+        displayAlert(with: title , message: message, actions: [action])
         viewModel.hasMoreToFetch = false
         tableView.reloadData()
     }

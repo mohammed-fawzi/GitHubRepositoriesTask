@@ -77,5 +77,13 @@ final class RepositoriesViewModel {
         }
     }
     
+    
+    func refresh(){
+        repositories = []
+        hasMoreToFetch = true
+        currentPage = 1
+        fetchModerators()
+    }
+    
 }
 
