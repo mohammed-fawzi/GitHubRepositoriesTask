@@ -9,7 +9,7 @@
 import Foundation
 
 protocol RepositoriesViewModelDelegate: class {
-    func fetchCompleted()
+    func fetchCompleted(currentPageNumber: Int, totalNumberOfPages: Int)
     func fetchFailed(with reason: String)
 }
 
@@ -22,6 +22,7 @@ final class RepositoriesViewModel {
     private var currentPage = 1
     private var isFetchInProgress = false
     var hasMoreToFetch = true
+    
     
     let client = GitHubClient()
     let request: GetRepositoriesRequest
@@ -71,7 +72,8 @@ final class RepositoriesViewModel {
                     self.repositories.append(contentsOf: response.repositories)
                     CoreDataManager.shared.saveRepositories(response.repositories)
                     
-                    self.delegate?.fetchCompleted()
+                    self.delegate?.fetchCompleted(currentPageNumber: self.currentPage - 1,
+                                                  totalNumberOfPages: self.client.totalNumberOfPages)
                 }
             }
         }

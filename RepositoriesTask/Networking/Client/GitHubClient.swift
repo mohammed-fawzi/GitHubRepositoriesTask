@@ -11,6 +11,8 @@ import Foundation
 class GitHubClient {
     private let baseEndpointUrl = URL(string: "https://api.github.com/users/JakeWharton/")!
     private let session = URLSession(configuration: .default)
+    private var isFirstCall = true
+    var totalNumberOfPages = 1 
     
     
     func fetchRepositories(withRequest request: GetRepositoriesRequest,
@@ -34,6 +36,11 @@ class GitHubClient {
                 return
             }
             
+            if self.isFirstCall {
+                self.totalNumberOfPages = self.getTotalNumberOfPages(response: httpResponse) ?? 1
+                self.isFirstCall = false
+            }
+           
             completion(Result.success(parsedResponse))
         })
         
@@ -45,7 +52,7 @@ class GitHubClient {
         let decoder = JSONDecoder()
         do{
             let decodedResponse = try decoder.decode([Repository].self, from: data)
-            var pagedRepositories = PagedRepositoriesResponse(repositories: decodedResponse, hasMore: true)
+            var pagedRepositories = PagedRepositoriesResponse(repositories: decodedResponse)
             if let linkHeader = response.allHeaderFields["Link"] as? String  {
                 if !linkHeader.contains("rel=\"next\"") {
                     pagedRepositories.hasMore = false
@@ -59,7 +66,7 @@ class GitHubClient {
     
 }
 
-
+//MARK:- Helper Methods
 extension GitHubClient {
     private func constructURL(for request: GetRepositoriesRequest) -> URL {
         guard let baseUrl = URL(string: request.resourceName, relativeTo: baseEndpointUrl) else {
@@ -72,4 +79,20 @@ extension GitHubClient {
         return completeUrl
     }
     
+    
+    func getTotalNumberOfPages(response: HTTPURLResponse)-> Int?{
+        guard let linkHeader = response.allHeaderFields["Link"] as? String  else {return nil}
+        let lastPageLink = linkHeader.split(separator: ",").filter{$0.contains("rel=\"last\"")}.first
+    
+            guard let lastPageLinkString = lastPageLink,
+                  let page = String(lastPageLinkString).subString(WithPattern: "&page=[1-9]+"),
+                  let lastPageNumber = page.subString(WithPattern: "[1-9]+") else {return nil}
+            
+            return Int(lastPageNumber)
+
+    }
+    
+    
 }
+
+

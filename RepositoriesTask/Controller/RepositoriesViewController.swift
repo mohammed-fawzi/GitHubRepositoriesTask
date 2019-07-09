@@ -10,6 +10,7 @@ import UIKit
 
 class RepositoriesViewController: UIViewController, AlertDisplayer{
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var progrssBar: UIProgressView!
     
     private var viewModel: RepositoriesViewModel!
     private let refreshControl = UIRefreshControl()
@@ -67,11 +68,17 @@ extension RepositoriesViewController: UITableViewDataSource {
 
 //MARK:-  View Model Delegate
 extension RepositoriesViewController: RepositoriesViewModelDelegate {
-    func fetchCompleted() {
+    func fetchCompleted(currentPageNumber: Int, totalNumberOfPages: Int) {
+        let progress = Float(currentPageNumber)/Float(totalNumberOfPages)
+        print(currentPageNumber)
+        print(totalNumberOfPages)
+        print(progress)
+        progrssBar.setProgress(progress, animated: true)
         refreshControl.endRefreshing()
         tableView.reloadData()
- 
     }
+    
+  
     
     func fetchFailed(with reason: String) {
         refreshControl.endRefreshing()

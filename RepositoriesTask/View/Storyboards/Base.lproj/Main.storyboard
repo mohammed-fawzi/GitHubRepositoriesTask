@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -48,17 +47,27 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="zJR-xv-Dz1"/>
                                 </connections>
                             </tableView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="EDl-6T-Yuk">
+                                <rect key="frame" x="0.0" y="854" width="414" height="8"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="8" id="nvs-tw-vep"/>
+                                </constraints>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2fG-ki-uNP" secondAttribute="trailing" id="0SK-zn-r42"/>
+                            <constraint firstAttribute="trailing" secondItem="EDl-6T-Yuk" secondAttribute="trailing" id="Hdr-Ui-EQt"/>
                             <constraint firstItem="2fG-ki-uNP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ic8-zq-gnT"/>
                             <constraint firstItem="2fG-ki-uNP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="N2m-hV-GST"/>
+                            <constraint firstItem="EDl-6T-Yuk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cwZ-ps-bfF"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="2fG-ki-uNP" secondAttribute="bottom" id="fly-n4-9aB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="EDl-6T-Yuk" secondAttribute="bottom" id="tYw-qp-QKH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="progrssBar" destination="EDl-6T-Yuk" id="CjY-LR-fQ4"/>
                         <outlet property="tableView" destination="2fG-ki-uNP" id="9in-G2-EDw"/>
                     </connections>
                 </viewController>

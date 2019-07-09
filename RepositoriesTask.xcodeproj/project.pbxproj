@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7160A5D022D43EAE00D915AC /* String + Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7160A5CF22D43EAE00D915AC /* String + Extention.swift */; };
 		71D12FC722D3A0C60070F432 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D12FC622D3A0C60070F432 /* AppDelegate.swift */; };
 		71D12FC922D3A0C60070F432 /* RepositoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D12FC822D3A0C60070F432 /* RepositoriesViewController.swift */; };
 		71D12FCC22D3A0C60070F432 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71D12FCA22D3A0C60070F432 /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7160A5CF22D43EAE00D915AC /* String + Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extention.swift"; sourceTree = "<group>"; };
 		71D12FC322D3A0C60070F432 /* RepositoriesTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RepositoriesTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D12FC622D3A0C60070F432 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		71D12FC822D3A0C60070F432 /* RepositoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 			children = (
 				71D12FE422D3A41F0070F432 /* URL+Extention.swift */,
 				71D12FF722D3AAF10070F432 /* HTTPURLResponse + extention.swift */,
+				7160A5CF22D43EAE00D915AC /* String + Extention.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				71D12FF122D3A6DB0070F432 /* GetRepositoriesRequest.swift in Sources */,
 				71D1300122D3BB500070F432 /* Cells.swift in Sources */,
 				71D12FEC22D3A4C30070F432 /* Repository.swift in Sources */,
+				7160A5D022D43EAE00D915AC /* String + Extention.swift in Sources */,
 				71D1300422D419B40070F432 /* CoreDataManager.swift in Sources */,
 				71D12FC922D3A0C60070F432 /* RepositoriesViewController.swift in Sources */,
 				71D12FC722D3A0C60070F432 /* AppDelegate.swift in Sources */,

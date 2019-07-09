@@ -11,4 +11,9 @@ import Foundation
 struct PagedRepositoriesResponse {
     let repositories: [Repository]
     var hasMore: Bool
+    
+    init(repositories: [Repository]) {
+        self.repositories = repositories
+        hasMore = true
+    }
 }
