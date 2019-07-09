@@ -19,39 +19,48 @@ class GitHubClient {
         
         request.updateQueiry(forKey: "page", withValue: page)
         let url = constructURL(for: request)
-        
-        
-        session.dataTask(with: url, completionHandler: { data, response, error in
-            guard
-                let httpResponse = response as? HTTPURLResponse,
+    
+        let task = session.dataTask(with: url, completionHandler: { data, response, error in
+            guard let httpResponse = response as? HTTPURLResponse,
                 httpResponse.hasSuccessStatusCode,
                 let data = data
                 else {
                     completion(Result.failure(ResponseError.network))
                     return
             }
-           
-  
-            guard let decodedResponse = try? JSONDecoder().decode([Repository].self, from: data) else {
+    
+            guard let parsedResponse = self.parseResponse(data: data, response: httpResponse) else{
                 completion(Result.failure(ResponseError.decoding))
                 return
             }
-            var pagedRepositories = PagedRepositoriesResponse(repositories: decodedResponse,
-                                                              hasMore: true,
-                                                              page: page)
             
-            if let linkHeader = httpResponse.allHeaderFields["Link"] as? String  {
+            completion(Result.success(parsedResponse))
+        })
+        
+        task.resume()
+    }
+    
+    
+    func parseResponse(data: Data, response: HTTPURLResponse)-> PagedRepositoriesResponse?{
+        let decoder = JSONDecoder()
+        do{
+            let decodedResponse = try decoder.decode([Repository].self, from: data)
+            var pagedRepositories = PagedRepositoriesResponse(repositories: decodedResponse, hasMore: true)
+            if let linkHeader = response.allHeaderFields["Link"] as? String  {
                 if !linkHeader.contains("rel=\"next\"") {
                     pagedRepositories.hasMore = false
                 }
             }
-            
-            completion(Result.success(pagedRepositories))
-        }).resume()
+            return pagedRepositories
+        }catch{
+            return nil
+        }
     }
     
-    
-    
+}
+
+
+extension GitHubClient {
     private func constructURL(for request: GetRepositoriesRequest) -> URL {
         guard let baseUrl = URL(string: request.resourceName, relativeTo: baseEndpointUrl) else {
             fatalError("Bad resourceName: \(request.resourceName)")
@@ -63,5 +72,4 @@ class GitHubClient {
         return completeUrl
     }
     
-
 }

@@ -9,11 +9,13 @@
 import Foundation
 
 protocol RepositoriesViewModelDelegate: class {
-    func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?)
-    func onFetchFailed(with reason: String)
+    func fetchCompleted()
+    func fetchFailed(with reason: String)
 }
 
 final class RepositoriesViewModel {
+    
+    //MARK:- Variables
     private weak var delegate: RepositoriesViewModelDelegate?
     
     private var repositories: [Repository] = []
@@ -24,12 +26,8 @@ final class RepositoriesViewModel {
     
     let client = GitHubClient()
     let request: GetRepositoriesRequest
-    
-    init(request: GetRepositoriesRequest, delegate: RepositoriesViewModelDelegate) {
-        self.request = request
-        self.delegate = delegate
-    }
-    
+
+    //MARK:- computed properties
     var totalCount: Int {
         return total
     }
@@ -42,6 +40,14 @@ final class RepositoriesViewModel {
         return repositories[index]
     }
     
+    
+    
+    //MARK:- methods
+    init(request: GetRepositoriesRequest, delegate: RepositoriesViewModelDelegate) {
+        self.request = request
+        self.delegate = delegate
+    }
+    
     func fetchModerators() {
         
         guard !isFetchInProgress || hasMoreToFetch else {
@@ -49,13 +55,13 @@ final class RepositoriesViewModel {
         }
         
         isFetchInProgress = true
-        
+
         client.fetchRepositories(withRequest: request, page: currentPage) { result in
             switch result {
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.isFetchInProgress = false
-                    self.delegate?.onFetchFailed(with: error.reason)
+                    self.delegate?.fetchFailed(with: error.reason)
                 }
             
             case .success(let response):
@@ -66,23 +72,11 @@ final class RepositoriesViewModel {
                     self.hasMoreToFetch = response.hasMore
                     self.repositories.append(contentsOf: response.repositories)
                     
-                    if response.page > 1 {
-                        let indexPathsToReload = self.calculateIndexPathsToReload(from: response.repositories)
-                        self.delegate?.onFetchCompleted(with: indexPathsToReload)
-                    } else {
-                        self.delegate?.onFetchCompleted(with: .none)
-                    }
+                    self.delegate?.fetchCompleted()
                 }
             }
         }
     }
     
-    // This utility calculates the index paths for the last page of repositories received from the API
-    // used  to refresh only the content that's changed, instead of reloading the whole table view.
-    private func calculateIndexPathsToReload(from newRepositories: [Repository]) -> [IndexPath] {
-        let startIndex = repositories.count - newRepositories.count
-        let endIndex = startIndex + newRepositories.count
-        return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
-    }
 }
 

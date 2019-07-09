@@ -11,5 +11,4 @@ import Foundation
 struct PagedRepositoriesResponse {
     let repositories: [Repository]
     var hasMore: Bool
-    var page: Int
 }

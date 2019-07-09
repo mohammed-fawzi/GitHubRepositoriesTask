@@ -52,16 +52,15 @@ extension RepositoriesViewController: UITableViewDataSource {
 }
 
 
-
 //MARK:-  View Model Delegate
 extension RepositoriesViewController: RepositoriesViewModelDelegate {
-    func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
+    func fetchCompleted() {
         
         tableView.reloadData()
  
     }
     
-    func onFetchFailed(with reason: String) {
+    func fetchFailed(with reason: String) {
         let title = "Warning"
         let action = UIAlertAction(title: "OK", style: .default)
         displayAlert(with: title , message: reason, actions: [action])
@@ -70,13 +69,4 @@ extension RepositoriesViewController: RepositoriesViewModelDelegate {
     
 }
 
-//MARK:- Helper methods
-extension RepositoriesViewController {
-   
-    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
-        let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows ?? []
-        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
-        return Array(indexPathsIntersection)
-    }
-}
 
